@@ -1,0 +1,21 @@
+﻿@model List<Uppfinnaren.Models.Alster>
+
+@{
+    ViewData["Title"] = "Våra drycker";
+}
+
+<h1>Våra drycker</h1>
+<div>
+    @foreach (var alster in Model)
+    {
+        <div style="margin-bottom: 20px;">
+            <h2>@alster.Name</h2>
+            <p>@alster.Description</p>
+            <img src="@alster.ImageUrl" alt="@alster.Name" style="width:200px;height:auto;" />
+        </div>
+    }
+</div>
+
+
+
+<img src="/wwwroot/assets/oel3.jpg" alt="öl" />
