@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\assets\oel1.webp" />
+    <None Include="wwwroot\assets\oel2.webp" />
+  </ItemGroup>
+
 </Project>
