@@ -8,9 +8,12 @@ namespace Uppfinnaren.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly AppDbContext _appDbContext;
+
+        public HomeController(ILogger<HomeController> logger, AppDbContext context)
         {
             _logger = logger;
+            _appDbContext = context;
         }
 
         //Method to handle the the start page
@@ -51,6 +54,30 @@ namespace Uppfinnaren.Controllers
             };
 
             return View(beerList); //Send the list of objects to the view
+        }
+
+        public IActionResult Stout()
+        {
+            var stoutList = _appDbContext.Alsters.Where(a => a.Sort == "Stout").ToList();
+            return View(stoutList);
+        }
+
+        public IActionResult Lager()
+        {
+            var lagerList = _appDbContext.Alsters.Where(a => a.Sort == "Lager").ToList();
+            return View(lagerList);
+        }
+
+        public IActionResult Ipa()
+        {
+            var ipaList = _appDbContext.Alsters.Where(a => a.Sort == "Ipa").ToList();
+            return View(ipaList);
+        }
+
+        public IActionResult Julöl()
+        {
+            var julölList = _appDbContext.Alsters.Where(a => a.Sort == "Julöl").ToList();
+            return View(julölList);
         }
     }
 }
