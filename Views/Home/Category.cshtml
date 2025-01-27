@@ -1,0 +1,28 @@
+﻿@model List<Uppfinnaren.Models.Alster>
+
+@if (Model.Any())
+{
+    <div>
+        @foreach (var alster in Model)
+        {
+            <div style="margin-bottom: 20px;">
+                <h2>@alster.Name</h2>
+                <p>@alster.Description</p>
+                <img src="@alster.ImageUrl" alt="@alster.Name" style="width:200px;height:auto;" />
+            </div>
+        }
+    </div>
+   
+}
+else
+{
+    <h2>Välj en kategori</h2>
+    <ul>
+        @foreach(var category in ViewBag.Categories)
+        {
+            <li><a href="@Url.Action("Category", "Home", new { sort = category })">Visa @category</a></li>
+
+        }
+        
+    </ul>
+}

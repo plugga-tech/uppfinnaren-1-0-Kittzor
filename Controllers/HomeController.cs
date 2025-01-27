@@ -56,28 +56,57 @@ namespace Uppfinnaren.Controllers
             return View(beerList); //Send the list of objects to the view
         }
 
-        public IActionResult Stout()
+        public IActionResult Category(string sort)
         {
-            var stoutList = _appDbContext.Alsters.Where(a => a.Sort == "Stout").ToList();
-            return View(stoutList);
-        }
 
-        public IActionResult Lager()
-        {
-            var lagerList = _appDbContext.Alsters.Where(a => a.Sort == "Lager").ToList();
-            return View(lagerList);
-        }
+            ViewBag.Categories = _appDbContext.Alsters
+                                .Select(p => p.Sort)
+                                .Distinct()
+                                .ToList();
 
-        public IActionResult Ipa()
-        {
-            var ipaList = _appDbContext.Alsters.Where(a => a.Sort == "Ipa").ToList();
-            return View(ipaList);
-        }
+            if (string.IsNullOrEmpty(sort))
+            {
+                ViewBag.Message = "Vängligen välj en kategori";
+                return View(new List<Alster>());
+            }
 
-        public IActionResult Julöl()
-        {
-            var julölList = _appDbContext.Alsters.Where(a => a.Sort == "Julöl").ToList();
-            return View(julölList);
+             
+
+            var items = _appDbContext.Alsters
+                .Where(a => a.Sort.Equals(sort, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (!items.Any())
+            {
+                return NotFound($"Ingen kategori hittades!");
+            }
+
+            return View(items); 
         }
+      
+
+        //public IActionResult Stout()
+        //{
+        //    var stoutList = _appDbContext.Alsters.Where(a => a.Sort == "Stout").ToList();
+        //    return View(stoutList);
+        //}
+
+        //public IActionResult Lager()
+        //{
+        //    var lagerList = _appDbContext.Alsters.Where(a => a.Sort == "Lager").ToList();
+        //    return View(lagerList);
+        //}
+
+        //public IActionResult Ipa()
+        //{
+        //    var ipaList = _appDbContext.Alsters.Where(a => a.Sort == "Ipa").ToList();
+        //    return View(ipaList);
+        //}
+
+        //public IActionResult Julöl()
+        //{
+        //    var julölList = _appDbContext.Alsters.Where(a => a.Sort == "Julöl").ToList();
+        //    return View(julölList);
+        //}
     }
 }
